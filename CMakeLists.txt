@@ -33,7 +33,7 @@ include_directories(
 
 add_service_files(
   FILES
-  asr_recognizer_prediction_psm.srv
+  recognizer_prediction_psm.srv
   psm_node.srv
 )
 
