@@ -1,0 +1,12 @@
+/js_probabilistic_scene_inference_engine/sigma_multiplicator:           2.0
+/js_probabilistic_scene_inference_engine/plot:                          false
+/js_probabilistic_scene_inference_engine/scale_factor:                  1.0
+/js_probabilistic_scene_inference_engine/sigma_multiplicator:           2.0
+/js_probabilistic_scene_inference_engine/targeting_help:                false
+/js_probabilistic_scene_inference_engine/inference_algorithm:           maximum
+
+
+#Not used in psm_node but they have to be set
+/js_probabilistic_scene_inference_engine/object_topic:                  /stereo/objects
+/js_probabilistic_scene_inference_engine/scene_graph_topic:             /scene_graphs
+/js_probabilistic_scene_inference_engine/evidence_timeout:              100

@@ -1,0 +1,4 @@
+asr_msgs/AsrObject[] objects
+---
+asr_msgs/AsrAttributedPointCloud pose_hypothesis
+bool all_scene_objects_found

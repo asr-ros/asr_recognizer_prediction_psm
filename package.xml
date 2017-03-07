@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<package>
+  <name>asr_recognizer_prediction_psm</name>
+  <version>1.0.0</version>
+  <description>
+    This package generates hypotheses (type and pose) of objects that are not observed yet but are part of a scene. 
+    It uses the PSM as underlaying scene model. The system computes a next_best_view/AttributedPointCloud.msg that can be processed by next_best_view. 
+  </description>
+  <author>Braun Kai, Meißner Pascal</author>
+  <maintainer email="asr-ros@lists.kit.edu">Meißner Pascal</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>asr_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>Eigen</build_depend>
+  <build_depend>Boost</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>asr_psm</build_depend>
+  <build_depend>asr_next_best_view</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>asr_rapidxml</build_depend>
+  
+  <run_depend>message_runtime</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>asr_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>Eigen</run_depend>
+  <run_depend>Boost</run_depend>
+  <run_depend>asr_psm</run_depend>
+  <run_depend>asr_next_best_view</run_depend>
+  <run_depend>asr_rapidxml</run_depend>
+  
+ 
+</package>

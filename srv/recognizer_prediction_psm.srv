@@ -1,0 +1,9 @@
+string pathToXML
+string[] scenes
+float32[] scene_probabilities
+uint32 num_votes
+asr_msgs/AsrObject[] objects
+string base_frame_id
+---
+asr_msgs/AsrAttributedPointCloud pose_hypothesis
+bool all_scene_objects_found

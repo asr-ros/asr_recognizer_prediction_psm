@@ -1,0 +1,25 @@
+ 
+<launch>
+  <include file="$(find asr_recognizer_prediction_psm)/launch/recognizer_prediction_psm.launch" />
+  
+    <!-- Path to the scene file -->
+  <param name="/js_probabilistic_scene_inference_engine/scene_model_filename" value="$(find asr_recognizer_prediction_psm)/models/dome_scene1.xml" />
+  
+    <!-- Path to the scene graph files that were generated during psm training -->
+  <rosparam param="/js_probabilistic_scene_inference_engine/bag_filenames_list">
+      - '/home/SMBAD/braun/Documents/testscene/scenegraphs/SCENEGRAPH_breakfast.bag'
+  </rosparam>
+  
+    <!-- Some settings for the psm inference -->
+  <rosparam file="$(find asr_recognizer_prediction_psm)/launch/properties.yaml"/>
+  
+  
+  <node name="psm_node" pkg="asr_recognizer_prediction_psm" type="psm_node" output="screen">
+      <!-- The number of hypothesis that overall should be generated-->
+    <param name="num_hypothesis" value="100" />
+      <!-- The frame to which the hypothesis should be transformed into. -->
+    <param name="base_frame_id" value="/map" />
+      <!-- Enable/Disable a visualization . This overwrites the parameter /recognizer_prediction_psm/visualize_hypothesis -->
+    <param name="visualize_hypothesis" value="true" />
+  </node>
+</launch>
