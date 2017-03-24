@@ -20,6 +20,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include <cstdlib>
 #include <asr_msgs/AsrObject.h>
 
+#include <ros/package.h>
+
 
 int main(int argc, char **argv)
 {
@@ -38,7 +40,7 @@ int main(int argc, char **argv)
     /**
      * Adding some test data
      */
-    std::string path = "/home/SMBAD/braun/git_catkin_ws/src/ilcasRosFull/perception/scene_understanding/recognizer_prediction_psm/models/marker_scene1.xml";
+    std::string path = ros::package::getPath("asr_recognizer_prediction_psm") + "/models/dome_scene1.xml";
     std::vector<std::string> scenes;
     scenes.push_back("background");
     scenes.push_back("marker_scene1");

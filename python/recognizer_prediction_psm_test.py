@@ -24,6 +24,8 @@ import signal
 import sys
 import rospkg
 
+from geometry_msgs.msg import PoseWithCovariance
+
 def main():
     objects = []
     
@@ -31,39 +33,43 @@ def main():
     obj.type = 'VitalisSchoko'
     obj.identifier = '/map'
     obj.header.frame_id = '/map'
-    obj.poseEstimation.pose.position.x = -0.3
-    obj.poseEstimation.pose.position.y = -1
-    obj.poseEstimation.pose.position.z = -0.6
-    obj.poseEstimation.pose.orientation.w = 0.5
-    obj.poseEstimation.pose.orientation.x = 0
-    obj.poseEstimation.pose.orientation.y = 0
-    obj.poseEstimation.pose.orientation.z = -0.5
+    poseWithCovariance = PoseWithCovariance()
+    poseWithCovariance.pose.position.x = -0.3
+    poseWithCovariance.pose.position.y = -1
+    poseWithCovariance.pose.position.z = -0.6
+    poseWithCovariance.pose.orientation.w = 0.5
+    poseWithCovariance.pose.orientation.x = 0
+    poseWithCovariance.pose.orientation.y = 0
+    poseWithCovariance.pose.orientation.z = -0.5
+    obj.sampledPoses.append(poseWithCovariance)
     objects.append(obj)
     
     obj2 = AsrObject()
     obj2.type = 'PlateDeep'
     obj2.identifier = '/map'
     obj2.header.frame_id = '/map'
-    obj2.poseEstimation.pose.position.x = -0.51
-    obj2.poseEstimation.pose.position.y = -1.2
-    obj2.poseEstimation.pose.position.z = -0.65
-    obj2.poseEstimation.pose.orientation.w = 0.5
-    obj2.poseEstimation.pose.orientation.x = 0.0
-    obj2.poseEstimation.pose.orientation.y = 0.0
-    obj2.poseEstimation.pose.orientation.z = -0.5
+    poseWithCovariance.pose.position.x = -0.51
+    poseWithCovariance.pose.position.y = -1.2
+    poseWithCovariance.pose.position.z = -0.65
+    poseWithCovariance.pose.orientation.w = 0.5
+    poseWithCovariance.pose.orientation.x = 0.0
+    poseWithCovariance.pose.orientation.y = 0.0
+    poseWithCovariance.pose.orientation.z = -0.5
+    obj2.sampledPoses.append(poseWithCovariance)
     #objects.append(obj2)
 
     obj2 = AsrObject()
     obj2.type = 'Cup'
     obj2.identifier = '/map'
     obj2.header.frame_id = '/map'
-    obj2.poseEstimation.pose.position.x = 0
-    obj2.poseEstimation.pose.position.y = -1.13
-    obj2.poseEstimation.pose.position.z = -0.65
-    obj2.poseEstimation.pose.orientation.w = 0.5
-    obj2.poseEstimation.pose.orientation.x = 0.0
-    obj2.poseEstimation.pose.orientation.y = 0.0
-    obj2.poseEstimation.pose.orientation.z = -0.5
+    poseWithCovariance.pose.position.x = 0
+    poseWithCovariance.pose.position.y = -1.13
+    poseWithCovariance.pose.position.z = -0.65
+    poseWithCovariance.pose.orientation.w = 0.5
+    poseWithCovariance.pose.orientation.x = 0.0
+    poseWithCovariance.pose.orientation.y = 0.0
+    poseWithCovariance.pose.orientation.z = -0.5
+    obj2.sampledPoses.append(poseWithCovariance)
     #objects.append(obj2)
     
 

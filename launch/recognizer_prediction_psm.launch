@@ -1,7 +1,7 @@
 <launch>
 	<!--Load config file for rosconsole so that log level for scene recognition is set to debug.-->
 	<env name="ROSCONSOLE_CONFIG_FILE" value="$(find asr_recognizer_prediction_psm)/launch/rosconsole_asr.config"/>
-        <node name="recognizer_prediction_psm" pkg="asr_recognizer_prediction_psm" type="recognizer_prediction_psm" output="screen">
+        <node name="asr_recognizer_prediction_psm" pkg="asr_recognizer_prediction_psm" type="asr_recognizer_prediction_psm" output="screen">
         
 	  <!-- print additional messages to the console -->
 	  <param name="print_debug_messages" value="false"/>

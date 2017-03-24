@@ -24,6 +24,8 @@ import signal
 import sys
 import rospkg
 
+from geometry_msgs.msg import PoseWithCovariance
+
 def main():
     objects = []
     
@@ -32,39 +34,43 @@ def main():
     obj.type = 'Cup'
     obj.identifier = '/map'
     obj.header.frame_id = '/map'
-    obj.poseEstimation.pose.position.x = 0.10103984720538714 
-    obj.poseEstimation.pose.position.y = -0.0140818815746599 
-    obj.poseEstimation.pose.position.z = 0.16235541952861962
-    obj.poseEstimation.pose.orientation.w = 0.99553314478114419 
-    obj.poseEstimation.pose.orientation.x = -0.0074066082083501595 
-    obj.poseEstimation.pose.orientation.y = -0.030613037027407385
-    obj.poseEstimation.pose.orientation.z =  0.037845601112626276
+    poseWithCovariance = PoseWithCovariance()
+    poseWithCovariance.pose.position.x = 0.10103984720538714 
+    poseWithCovariance.pose.position.y = -0.0140818815746599 
+    poseWithCovariance.pose.position.z = 0.16235541952861962
+    poseWithCovariance.pose.orientation.w = 0.99553314478114419 
+    poseWithCovariance.pose.orientation.x = -0.0074066082083501595 
+    poseWithCovariance.pose.orientation.y = -0.030613037027407385
+    poseWithCovariance.pose.orientation.z =  0.037845601112626276
+    obj.sampledPoses.append(poseWithCovariance)
     objects.append(obj)
 
     obj2 = AsrObject()
     obj2.type = 'PlateDeep'
     obj2.identifier = '/map'
     obj2.header.frame_id = '/map'
-    obj2.poseEstimation.pose.position.x = 0
-    obj2.poseEstimation.pose.position.y = 0
-    obj2.poseEstimation.pose.position.z = 0
-    obj2.poseEstimation.pose.orientation.w = 1
-    obj2.poseEstimation.pose.orientation.x = 0.0
-    obj2.poseEstimation.pose.orientation.y = 0.0
-    obj2.poseEstimation.pose.orientation.z = 0.0
+    poseWithCovariance.pose.position.x = 0
+    poseWithCovariance.pose.position.y = 0
+    poseWithCovariance.pose.position.z = 0
+    poseWithCovariance.pose.orientation.w = 1
+    poseWithCovariance.pose.orientation.x = 0.0
+    poseWithCovariance.pose.orientation.y = 0.0
+    poseWithCovariance.pose.orientation.z = 0.0
+    obj2.sampledPoses.append(poseWithCovariance)
     objects.append(obj2)
 
     obj2 = AsrObject()
     obj2.type = 'Smacks'
     obj2.identifier = '/map'
     obj2.header.frame_id = '/map'
-    obj2.poseEstimation.pose.position.x = 0.076435975386262803  
-    obj2.poseEstimation.pose.position.y = -0.11043452060606049
-    obj2.poseEstimation.pose.position.z = 0.30012156632996601
-    obj2.poseEstimation.pose.orientation.w = 0.99788836565656736
-    obj2.poseEstimation.pose.orientation.x = -0.020827786229582479
-    obj2.poseEstimation.pose.orientation.y = -0.011928087026733992
-    obj2.poseEstimation.pose.orientation.z = 0.01032709707676762
+    poseWithCovariance.pose.position.x = 0.076435975386262803  
+    poseWithCovariance.pose.position.y = -0.11043452060606049
+    poseWithCovariance.pose.position.z = 0.30012156632996601
+    poseWithCovariance.pose.orientation.w = 0.99788836565656736
+    poseWithCovariance.pose.orientation.x = -0.020827786229582479
+    poseWithCovariance.pose.orientation.y = -0.011928087026733992
+    poseWithCovariance.pose.orientation.z = 0.01032709707676762
+    obj2.sampledPoses.append(poseWithCovariance)
     #objects.append(obj2)
     
     
