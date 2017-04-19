@@ -244,9 +244,6 @@ public:
     void collectPoseHypothesesRecursive(std::vector<ASR::AttributedPoint> &out_hypotheses,
                                         std::vector<ASR::AttributedPoint> &out_found_objects)
     {
-        ROS_ASSERT(out_hypotheses);
-        ROS_ASSERT(out_found_objects);
-
         // Add the nodes position to the samples
         if(this->isObjectObserved())
         {
