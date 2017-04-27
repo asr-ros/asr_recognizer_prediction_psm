@@ -22,7 +22,7 @@ namespace ASR
 
 asrPosePredictionEngine::asrPosePredictionEngine(std::string pathToXML,
                                                  std::string sceneName,
-                                                 std::vector<boost::shared_ptr<ISM::Object>> objects,
+                                                 std::vector<boost::shared_ptr<asr_msgs::AsrObject>> objects,
                                                  int votes = 100,
                                                  std::string base_frame = "/map")
       : path(pathToXML),
@@ -46,31 +46,31 @@ asrPosePredictionEngine::asrPosePredictionEngine(std::string pathToXML,
 
   do
   {
-      boost::shared_ptr<ISM::Object> tempObject = objects.at(counter);
+      boost::shared_ptr<asr_msgs::AsrObject> tempObject = objects.at(counter);
 
-      if(!tempObject->pose){
-    std::cerr << "Got a Object without poses." << std::endl;
+      if(!tempObject->sampledPoses.size()){
+    std::cerr << "Got a AsrObject without poses." << std::endl;
 	std::exit(1);    
       }
 
-      ISM::Pose currentPose = tempObject->pose;
+      geometry_msgs::PoseWithCovariance currentPose = tempObject->sampledPoses.front();
 
-      ROS_INFO("\nStarted pose prediciton. Reference object name %s", tempObject->type);
+      ROS_INFO("\nStarted pose prediciton. Reference object name %s", tempObject->type.c_str());
 
 
       // Transform the reference object to the base_frame
-      transformObject(tempObject, baseFrameId);
+      transformObject(tempObject, baseFrameId.c_str());
 
-      Eigen::Vector3f position = Eigen::Vector3f(currentPose.point->getEigen().x,currentPose.point->getEigen().y, currentPose.point->getEigen().z);
+      Eigen::Vector3f position = Eigen::Vector3f(currentPose.pose.position.x,currentPose.pose.position.y, currentPose.pose.position.z);
 
-      Eigen::Vector4f ori = Eigen::Vector4f(currentPose.quat.getEigen().w,
-                        currentPose.quat->getEigen().x,
-                        currentPose.quat->getEigen().y,
-                        currentPose.quat->getEigen().z);
+      Eigen::Vector4f ori = Eigen::Vector4f(currentPose.pose.orientation.w,
+					    currentPose.pose.orientation.x,
+					    currentPose.pose.orientation.y,
+					    currentPose.pose.orientation.z);
 
 
       // Load the scene descritiption xml and build the scene graph
-      init(sceneName, tempObject->type, position, ori, base_frame);
+      init(sceneName, tempObject->type.c_str(), position, ori, base_frame);
 
       reference_object_name = tempObject->type;
 
@@ -136,7 +136,7 @@ void asrPosePredictionEngine::init(std::string sceneName,
          throw std::runtime_error("Please specify parameter " + std::string("object_topic") + " when starting this node.");
 */
     if(publish_hypothesis)
-        hypothesis_publisher = n.advertise<pbd_msgs::PbdAttributedPoint>(publish_hypothesis_topic, number_of_votes);
+        hypothesis_publisher = n.advertise<asr_msgs::AsrAttributedPoint>(publish_hypothesis_topic, number_of_votes);
 /*
     if(!print_debug_messages)
         ROS_INFO("-- Debug mode is disabled. Additional Messages are only printed to console if debug mode is enabled.\n");
@@ -364,7 +364,7 @@ void asrPosePredictionEngine::publishHypothesisMessages(std::vector<ASR::Attribu
 
     for(auto p : hypothesis_list)
     {
-        pbd_msgs::PbdAttributedPoint point;
+        asr_msgs::AsrAttributedPoint point;
         point.type = p.objectType;
         point.pose = p.pose;
         hypothesis_publisher.publish(point);
@@ -388,11 +388,11 @@ void asrPosePredictionEngine::calcHypotheses()
 
     bool new_evidence_integrated = false;
 
-    for(boost::shared_ptr<ISM::Object> pObject : evidence_buffer)
+    for(boost::shared_ptr<asr_msgs::AsrObject> pObject : evidence_buffer)
     {
 
-      if(!pObject->pose){
-	std::cerr << "Got a PbdObject without poses." << std::endl;
+      if(!pObject->sampledPoses.size()){
+    std::cerr << "Got a AsrObject without poses." << std::endl;
 	std::exit(1);    
       }
 
@@ -470,7 +470,7 @@ void asrPosePredictionEngine::collectPoseHypothesesRecursive(std::vector<ASR::At
 }
 
 
-void asrPosePredictionEngine::onObjectMsg(const boost::shared_ptr<ISM::Object>& pObject)
+void asrPosePredictionEngine::onObjectMsg(const boost::shared_ptr<asr_msgs::AsrObject>& pObject)
 {
     // Check if the object is already in the buffer
     for(auto o : evidence_buffer)
@@ -489,10 +489,10 @@ void asrPosePredictionEngine::onObjectMsg(const boost::shared_ptr<ISM::Object>& 
 }
 
 
-bool asrPosePredictionEngine::transformObject(boost::shared_ptr<ISM::Object> in_out_object, std::string targetFrame)
+bool asrPosePredictionEngine::transformObject(boost::shared_ptr<asr_msgs::AsrObject> in_out_object, std::string targetFrame)
 {
     // Check if the object is already in the target frame
-    if(in_out_object->observedId.compare(targetFrame) == 0)
+    if(in_out_object->header.frame_id.compare(targetFrame) == 0)
         return true;
 
     try
@@ -509,14 +509,14 @@ bool asrPosePredictionEngine::transformObject(boost::shared_ptr<ISM::Object> in_
         return false;
     }
 
-    if(!in_out_object->pose){
-      std::cerr << "Got a PbdObject without poses." << std::endl;
+    if(!in_out_object->sampledPoses.size()){
+      std::cerr << "Got a AsrObject without poses." << std::endl;
       std::exit(1);    
     }
 
     // get the transformed position
-    auto position = in_out_object->pose->point->getEigen();
-    auto orientation = in_out_object->pose->quat->getEigen();
+    auto position = in_out_object->sampledPoses.front().pose.position;
+    auto orientation = in_out_object->sampledPoses.front().pose.orientation;
 
     ROS_INFO ("Object %s transformed to frame %s (%.2f, %.2f, %.2f) (w: %.2f, x: %.2f, y: %.2f, z: %.2f,)",
 	      in_out_object->type.c_str(), targetFrame.c_str(),
