@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   asr_psm
   message_generation
   asr_rapidxml
+  asr_lib_ism
 )
 
 find_package(Boost REQUIRED
