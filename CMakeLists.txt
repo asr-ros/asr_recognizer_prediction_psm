@@ -23,11 +23,11 @@ find_package(Boost REQUIRED
   iostreams
 )
 
-find_package(Eigen REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 include_directories(
   include 
-  ${Eigen_INCLUDE_DIRS}
+  ${Eigen3_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
 )
@@ -57,7 +57,8 @@ catkin_package(
 		  asr_psm
 		  message_runtime
 		  asr_rapidxml
-  DEPENDS Eigen Boost
+  #DEPENDS Eigen3 Boost
+  DEPENDS Boost
 )
 
 add_executable(${PROJECT_NAME} src/recognizer_prediction_psm_server.cpp
@@ -81,21 +82,21 @@ add_dependencies(
 			    
 target_link_libraries(
   ${PROJECT_NAME}
-  ${Eigen_LIBRARIES}
+  ${Eigen3_LIBRARIES}
   ${Boost_LIBRARIES}
   ${catkin_LIBRARIES}
 )
 
 target_link_libraries(
   ${PROJECT_NAME}_client
-  ${Eigen_LIBRARIES}
+  ${Eigen3_LIBRARIES}
   ${Boost_LIBRARIES}
   ${catkin_LIBRARIES}
 )
 
 target_link_libraries(
   psm_node
-  ${Eigen_LIBRARIES}
+  ${Eigen3_LIBRARIES}
   ${Boost_LIBRARIES}
   ${catkin_LIBRARIES}
 )
