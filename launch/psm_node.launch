@@ -11,7 +11,7 @@
   </rosparam>
   
     <!-- Some settings for the psm inference -->
-  <rosparam file="$(find asr_recognizer_prediction_psm)/launch/properties.yaml"/>
+  <rosparam file="$(find asr_recognizer_prediction_psm)/param/properties.yaml"/>
   
   
   <node name="psm_node" pkg="asr_recognizer_prediction_psm" type="psm_node" output="screen">
